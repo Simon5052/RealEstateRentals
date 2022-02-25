@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RealEstateRentals</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="~/RealEstate/stated-master/js/aos.js"></script>
+    <script src="~/RealEstate/stated-master/js/bootstrap.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/jquery.countdown.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/jquery.easing.1.3.js"></script>
+    <script src="~/RealEstate/stated-master/js/jquery.fancybox.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/jquery.stellar.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/jquery.sticky.js"></script>
+    <script src="~/RealEstate/stated-master/js/jquery-3.3.1.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/jquery-ui.js"></script>
+    <script src="~/RealEstate/stated-master/js/main.js"></script>
+    <script src="~/RealEstate/stated-master/js/mediaelement-and-player.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/owl.carousel.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/popper.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/slick.min.js"></script>
+    <script src="~/RealEstate/stated-master/js/typed.js"></script>
+    <script src="~/Kendo/js/jszip.min.js"></script>
+    <script src="~/Kendo/js/kendo.all.min.js"></script>
+    <script src="~/Kendo/js/kendo.aspnetmvc.min.js"></script>
+
+    <link href="~/RealEstate/stated-master/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/bootstrap/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/bootstrap/bootstrap-reboot.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/aos.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/jquery-ui.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/magnific-popup.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/mediaelementplayer.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/RealEstate/stated-master/css/style.css" rel="stylesheet" />
+
+    <link href="~/Kendo/kendo.blueopal.min.css" rel="stylesheet" />
+    <link href="~/Kendo/kendo.common.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RealEstateRentals</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - RealEstateRentals - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

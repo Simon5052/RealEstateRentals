@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewData["Title"] = "All";
+}
+
+
+<br />
+<br />
+<br />
+
+
+
+<section class="site-section border-bottom">
+    <h4 class="col-md-8 col-lg-8 col-sm-8 offset-md-2 offset-lg-2 offset-sm-2">All Property</h4>
+
+
+
+    <div class="col-md-8 col-lg-8 col-sm-8 offset-md-2 offset-lg-2 offset-sm-2">
+        @(Html.Kendo().Grid<PropertyModel>
+    ()
+    .Name("propertyGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.PropertyName).Title("Property Name").Width(190);
+        columns.Bound(c => c.Rooms).Title("Rooms").Width(190);
+        columns.Bound(c => c.Space).Title("Space").Width(190);
+        columns.Bound(c => c.Cost).Title("Cost").Width(190).Format("{0:N}");
+        columns.Bound(c => c.CreatedAt).Title("Added").Width(190).Format("{0: dd-MMM-yyyy hh:mm tt }");
+
+
+
+
+        columns.Command(c =>
+        {
+            c.Edit();
+            c.Destroy();
+        }).Width(200);
+
+
+
+    })
+
+
+
+    .ToolBar(tools => {
+        tools.Custom().Text("Add Property").IconClass("k-icon k-i-plus").HtmlAttributes(new {onclick = "GoToAddPropertyPage()" });
+        tools.Excel();
+        tools.Pdf();
+    })
+    .Excel(excel => excel
+    .FileName("Property.xlsx")
+    .Filterable(true)
+    )
+    .Pdf(pdf => pdf
+    .FileName("Property.pdf")
+    )
+    .Scrollable(s => s.Height("auto"))
+    .Groupable()
+    .Editable(e => e.Mode(GridEditMode.PopUp))
+    .Sortable()
+    .Filterable(f => f.Enabled(true).Operators(o =>
+    {
+        o.ForDate(t =>
+        {
+            t.Clear();
+            t.IsGreaterThan("Start Date");
+            t.IsLessThan("End Date");
+        });
+    })
+    )
+    .Pageable(pageable => pageable
+    .Refresh(true)
+    .PageSizes(true)
+    .ButtonCount(3).PageSizes(new int[] { 10, 100, 1000 }))
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .PageSize(100)
+    .Model(m => m.Id(p => p.PropertyId))
+    .Events(events =>
+    {
+        events.Error("error_handler");
+    })
+    .Read(read => read.Action("Property_Read", "Property"))
+    .Create(c => c.Action("User_Add", "Users"))
+    //.Update(c => c.Action("User_Update", "Users"))
+    //.Destroy(c => c.Action("User_Update", "Users"))
+
+
+
+    )
+    )
+    </div>
+
+
+</section>
+
+
+@section Scripts{
+
+    <script>
+
+        $(document).ready(function () {
+
+
+
+
+        });
+
+        function error_handler(e) {
+            try {
+                var errorMessage = "";
+                if (e && e.xhr) {
+                    var errorMessage = e.xhr.responseText;
+                }
+
+
+
+                if (errorMessage) {
+                    alert(errorMessage);
+                }
+
+
+
+            } catch (e) {
+                console.log(e);
+                alert("Oops! An error occurred while processing your request");
+            }
+        }
+        function GoToAddPropertyPage() {
+
+            window.location.href = "/Property/Add/"
+
+        }
+
+
+
+
+
+    </script>
+}

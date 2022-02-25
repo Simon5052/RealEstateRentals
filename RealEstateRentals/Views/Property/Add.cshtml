@@ -1,0 +1,208 @@
+﻿@model AddProperty
+@{
+    ViewData["Title"] = "Add";
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+@*asp-controller="Sales" asp-action="RecordSales"*@
+
+@*some properties will be hidden like the id and uid*@
+
+@*<form method="post" asp-controller="Sales" asp-action="RecordSales">
+    <div class="row">
+        <div class="col-3">
+            <label class="form-label">Quantity Sold</label>
+            <input class="form-control" id="QuantitySold" name="QuantitySold">
+        </div>
+        <div class="col-3">
+            <label class="form-label">Sold By</label>
+            <input class="form-control" name="SoldBy" id="SoldBy">
+
+        </div>
+        <div class="col-3">
+            <label class="form-label"></label>
+            <input class="col" name="ProductId" style="display:none" value='@ViewBag.ProductId' />
+            <button class="btn btn-primary mb-2 form-control" type="submit">Record Sales</button>
+
+
+        </div>
+
+
+    </div>
+</form>*@
+<form method="post" id="form" asp-controller="Property" asp-action="Add">
+    <div class=" col-md-8 offset-md-2">
+        <div class="row">
+            <div class="col-6">
+                <label class="form-label">Property Name</label>
+                <input class="form-control " id="PropertyName" asp-for="PropertyName">
+            </div>
+            <div class="col-6">
+                <label class="form-label">Property Type</label>
+                <input asp-for="PropertyTypeId" id="PropertyTypeId">
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+
+            <div class="col-6">
+                <label class="form-label">Region</label>
+                <input asp-for="RegionId" id="Region">
+
+            </div>
+            <div class="col-6">
+                <label class="form-label">Location</label>
+                <input asp-for="LocationId" id="LocationId">
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-6">
+                <label class="form-label">Rooms</label>
+                <input class="form-control" asp-for="Rooms" id="Rooms">
+
+            </div>
+            <div class="col-6">
+                <label class="form-label">Space</label>
+                <input class="form-control" asp-for="Space" id="Space">
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-6">
+                <label class="form-label">Cost</label>
+                <input class="form-control" asp-for="Cost" id="Cost">
+
+            </div>
+            <div class="offset-6">
+
+            </div>
+        </div>
+        <br />
+
+        <div class="col-3">
+            <label class="form-label"></label>
+            <button class="btn btn-primary mb-2 form-control" type="submit">Add Property</button>
+
+
+        </div>
+
+
+    </div>
+</form>
+
+<br />
+<br />
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $.validator.setDefaults({
+                ignore: [],
+                // any other default options and/or rules
+            });
+            $("#form").validate({
+                rules: {
+                    PropertyName: {
+                        required: true,
+                        minlength: 3,
+                    },
+                    PropertyTypeId: 'required',
+                    RegionId: 'required',
+                    LocationId: 'required',
+                    Rooms: {
+                        required: true,
+                        digits: true,
+
+                    },
+                    Space: {
+                        required: true,
+                        digits: true,
+
+                    },
+                    Cost: {
+                        required: true,
+                        digits: true,
+
+                    },
+                }
+            })
+           
+            $("#Region").width("100%").kendoDropDownList({
+                highlightFirst: true,
+                suggest: true,
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "/api/RegionApi/GetAllRegions"
+                        }
+                    }
+                },
+                index: 0,
+                dataTextField: 'RegionName',
+                dataValueField: 'RegionUuid',
+                optionLabel: '--Select Region--',
+                change : UpdateLocation
+
+            });
+
+            var regionUuid = $("#Region").val();
+            RenderLocations(regionUuid);
+
+            
+        });
+
+        function UpdateLocation() {
+            var regionUuid = $("#Region").val();
+            RenderLocations(regionUuid);
+        }
+
+        function RenderLocations(regionUuid) {
+            if (!regionUuid)
+                regionUuid = "00000000-0000-0000-0000-000000000000";
+
+            $("#LocationId").width("100%").kendoDropDownList({
+                highlightFirst: true,
+                suggest: true,
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: '/api/LocationApi/PerRegion?regionUuid=' + regionUuid
+                        }
+                    }
+                },
+                index: 0,
+                dataTextField: 'Address',
+                dataValueField: 'LocationUuid',
+                optionLabel: '--Select Location--'
+            });
+        }
+
+        
+
+        $("#PropertyTypeId").width("100%").kendoDropDownList({
+            highlightFirst: true,
+            suggest: true,
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/api/PropertyTypeApi/AllPropertyType"
+                    }
+                }
+            },
+            index: 0,
+            dataTextField: 'PropertTypeName',
+            dataValueField: 'PropertyTypeUuid',
+            optionLabel: '--Select Property Type--',
+
+        });
+    </script>
+}
+
